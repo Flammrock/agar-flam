@@ -25,39 +25,39 @@ class ChatClient {
 
     registerFunctions() {
         var self = this;
-        this.registerCommand('ping', 'Check your latency.', function () {
+        this.registerCommand('ping', 'Vérifiez votre latence.', function () {
             self.checkLatency();
         });
 
-        this.registerCommand('dark', 'Toggle dark mode.', function () {
+        this.registerCommand('dark', 'Active / désactive le mode sombre.', function () {
             self.toggleDarkMode();
         });
 
-        this.registerCommand('border', 'Toggle visibility of border.', function () {
+        this.registerCommand('border', 'Active / désactive la visibilité de la bordure.', function () {
             self.toggleBorder();
         });
 
-        this.registerCommand('mass', 'Toggle visibility of mass.', function () {
+        this.registerCommand('mass', 'Active / désactive la visibilité de la masse.', function () {
             self.toggleMass();
         });
 
-        this.registerCommand('continuity', 'Toggle continuity.', function () {
+        this.registerCommand('continuity', 'Active / désactive continuité.', function () {
             self.toggleContinuity();
         });
 
-        this.registerCommand('roundfood', 'Toggle food drawing.', function (args) {
+        this.registerCommand('roundfood', 'Active / désactive le dessin de la nourriture', function (args) {
             self.toggleRoundFood(args);
         });
 
-        this.registerCommand('help', 'Information about the chat commands.', function () {
+        this.registerCommand('help', 'Information à propos des commandes.', function () {
             self.printHelp();
         });
 
-        this.registerCommand('login', 'Login as an admin.', function (args) {
+        this.registerCommand('login', 'Connexion en temps qu\'admin.', function (args) {
             self.socket.emit('pass', args);
         });
 
-        this.registerCommand('kick', 'Kick a player, for admins only.', function (args) {
+        this.registerCommand('kick', 'Kick un joueur, pour les admins seulement.', function (args) {
             self.socket.emit('kick', args);
         });
         global.chatClient = this;
@@ -71,7 +71,7 @@ class ChatClient {
         var newline = document.createElement('li');
 
         // Colours the chat input correctly.
-        newline.className = (me) ? 'me' : 'friend';
+        newline.className = (me) ? 'me' : 'ami';
         newline.innerHTML = '<b>' + ((name.length < 1) ? 'An unnamed cell' : name) + '</b>: ' + message;
 
         this.appendMessage(newline);
@@ -121,7 +121,7 @@ class ChatClient {
                     if (commands[args[0]]) {
                         commands[args[0]].callback(args.slice(1));
                     } else {
-                        this.addSystemLine('Unrecognized Command: ' + text + ', type -help for more info.');
+                        this.addSystemLine('Commande inconnu: ' + text + ', tape -help pour + info.');
                     }
 
                 // Allows for regular messages to be sent to the server.
@@ -170,51 +170,51 @@ class ChatClient {
         if (global.backgroundColor === LIGHT) {
             global.backgroundColor = DARK;
             global.lineColor = LINEDARK;
-            this.addSystemLine('Dark mode enabled.');
+            this.addSystemLine('Dark mode activé.');
         } else {
             global.backgroundColor = LIGHT;
             global.lineColor = LINELIGHT;
-            this.addSystemLine('Dark mode disabled.');
+            this.addSystemLine('Dark mode désactivé.');
         }
     }
 
     toggleBorder() {
         if (!global.borderDraw) {
             global.borderDraw = true;
-            this.addSystemLine('Showing border.');
+            this.addSystemLine('Bordure affiché.');
         } else {
             global.borderDraw = false;
-            this.addSystemLine('Hiding border.');
+            this.addSystemLine('Bordure caché.');
         }
     }
 
     toggleMass() {
         if (global.toggleMassState === 0) {
             global.toggleMassState = 1;
-            this.addSystemLine('Viewing mass enabled.');
+            this.addSystemLine('Mass activé.');
         } else {
             global.toggleMassState = 0;
-            this.addSystemLine('Viewing mass disabled.');
+            this.addSystemLine('Mass désactivé.');
         }
     }
 
     toggleContinuity() {
         if (!global.continuity) {
             global.continuity = true;
-            this.addSystemLine('Continuity enabled.');
+            this.addSystemLine('Continuité activé.');
         } else {
             global.continuity = false;
-            this.addSystemLine('Continuity disabled.');
+            this.addSystemLine('Continuité désactivé.');
         }
     }
 
     toggleRoundFood(args) {
         if (args || global.foodSides < 10) {
             global.foodSides = (args && !isNaN(args[0]) && +args[0] >= 3) ? +args[0] : 10;
-            this.addSystemLine('Food is now rounded!');
+            this.addSystemLine('La nourriture est maintenant arrondi !');
         } else {
             global.foodSides = 5;
-            this.addSystemLine('Food is no longer rounded!');
+            this.addSystemLine('La nourriture n\'est plus arrondi !');
         }
     }
 }
