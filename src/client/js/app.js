@@ -1,3 +1,4 @@
+
 var io = require('socket.io-client');
 var ChatClient = require('./chat-client');
 var Canvas = require('./canvas');
@@ -184,9 +185,9 @@ function setupSocket(socket) {
         window.chat.player = player;
         socket.emit('gotit', player);
         global.gameStart = true;
-        debug('Game started at: ' + global.gameStart);
-        window.chat.addSystemLine('Connected to the game!');
-        window.chat.addSystemLine('Type <b>-help</b> for a list of commands.');
+        debug('Jeu commencé à : ' + global.gameStart);
+        window.chat.addSystemLine('Connecté au jeu !');
+        window.chat.addSystemLine('Tape <b>-help</b> pour voir la liste des commandes.');
         if (global.mobile) {
             document.getElementById('gameAreaWrapper').removeChild(document.getElementById('chatbox'));
         }
@@ -200,15 +201,15 @@ function setupSocket(socket) {
     });
 
     socket.on('playerDied', function (data) {
-        window.chat.addSystemLine('{GAME} - <b>' + (data.name.length < 1 ? 'An unnamed cell' : data.name) + '</b> was eaten.');
+        window.chat.addSystemLine('{GAME} - <b>' + (data.name.length < 1 ? 'An unnamed cell' : data.name) + '</b> a été mangé.');
     });
 
     socket.on('playerDisconnect', function (data) {
-        window.chat.addSystemLine('{GAME} - <b>' + (data.name.length < 1 ? 'An unnamed cell' : data.name) + '</b> disconnected.');
+        window.chat.addSystemLine('{GAME} - <b>' + (data.name.length < 1 ? 'An unnamed cell' : data.name) + '</b> a quitté la partie.');
     });
 
     socket.on('playerJoin', function (data) {
-        window.chat.addSystemLine('{GAME} - <b>' + (data.name.length < 1 ? 'An unnamed cell' : data.name) + '</b> joined.');
+        window.chat.addSystemLine('{GAME} - <b>' + (data.name.length < 1 ? 'An unnamed cell' : data.name) + '</b> a rejoint la partie.');
     });
 
     socket.on('leaderboard', function (data) {
@@ -539,7 +540,7 @@ function gameLoop() {
         graph.textAlign = 'center';
         graph.fillStyle = '#FFFFFF';
         graph.font = 'bold 30px sans-serif';
-        graph.fillText('You died!', global.screenWidth / 2, global.screenHeight / 2);
+        graph.fillText('Vous êtes mort !', global.screenWidth / 2, global.screenHeight / 2);
     }
     else if (!global.disconnected) {
         if (global.gameStart) {
@@ -578,7 +579,7 @@ function gameLoop() {
             graph.textAlign = 'center';
             graph.fillStyle = '#FFFFFF';
             graph.font = 'bold 30px sans-serif';
-            graph.fillText('Game Over!', global.screenWidth / 2, global.screenHeight / 2);
+            graph.fillText('Game Over !', global.screenWidth / 2, global.screenHeight / 2);
         }
     } else {
         graph.fillStyle = '#333333';
@@ -589,15 +590,15 @@ function gameLoop() {
         graph.font = 'bold 30px sans-serif';
         if (global.kicked) {
             if (reason !== '') {
-                graph.fillText('You were kicked for:', global.screenWidth / 2, global.screenHeight / 2 - 20);
+                graph.fillText('Vous avez été:', global.screenWidth / 2, global.screenHeight / 2 - 20);
                 graph.fillText(reason, global.screenWidth / 2, global.screenHeight / 2 + 20);
             }
             else {
-                graph.fillText('You were kicked!', global.screenWidth / 2, global.screenHeight / 2);
+                graph.fillText('Vous avez été botté !', global.screenWidth / 2, global.screenHeight / 2);
             }
         }
         else {
-              graph.fillText('Disconnected!', global.screenWidth / 2, global.screenHeight / 2);
+              graph.fillText('Déconnecté ! (FUCKKKKK)', global.screenWidth / 2, global.screenHeight / 2);
         }
     }
 }
