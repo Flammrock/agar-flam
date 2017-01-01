@@ -1,9 +1,9 @@
-﻿<!doctype html>
-<html lang="en">
+<!doctype html>
+<html lang="fr">
 <head>
     <!-- Meta Properties -->
     <meta charset="UTF-8">
-    <title>Agar.IO Clone</title>
+    <title>Agar Flam</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
     <!-- CSS -->
     <link rel="stylesheet" href="css/main.css" />
@@ -26,32 +26,32 @@
     </div>
     <div id="startMenuWrapper">
         <div id="startMenu">
-            <p>Open Agar</p>
+            <p>Flammrock's Agar</p>
             <input type="text" tabindex="0" autofocus placeholder="Enter your name here" id="playerNameInput" maxlength="25" />
-            <b class="input-error">Nick must be alphanumeric characters only!</b>
+            <b class="input-error">Votre nom doit seulement être composés uniquelent de lettres et de chiffres !</b>
             <br />
-            <a onclick="document.getElementById('spawn_cell').play();"><button id="startButton">Play</button></a>
-            <button id="spectateButton">Spectate</button>
-            <button id="settingsButton">Settings</button>
+            <a onclick="document.getElementById('spawn_cell').play();"><button id="startButton">Jouer</button></a>
+            <button id="spectateButton">Spectateur</button>
+            <button id="settingsButton">Options</button>
             <br />
             <div id="settings">
-                <h3>Settings</h3>
+                <h3>Options</h3>
                 <ul>
-                    <label><input id="visBord" type="checkbox">Show border</label>
-                    <label><input id="showMass" type="checkbox">Show mass</label>
+                    <label><input id="visBord" type="checkbox">Montrer la bordure</label>
+                    <label><input id="showMass" type="checkbox">Montrer la masse</label>
                     <br />
-                    <label><input id="continuity" type="checkbox">Continue moving when mouse is off-screen</label>
+                    <label><input id="continuity" type="checkbox">Continuer de bouger même lorsque la souris est hors de la fenêtre</label>
                     <br />
-                    <label><input id="roundFood" type="checkbox" checked>Rounded food</label>
+                    <label><input id="roundFood" type="checkbox" checked>Nourriture arrondi</label>
                 </ul>
             </div>
             <div id="instructions">
-                <h3>Gameplay</h3>
+                <h3>Comment jouer ?</h3>
                 <ul>
-                    <li>Move your mouse on the screen to move your character.</li>
-                    <li>Eat food and other players in order to grow your character (food respawns every time a player eats it).</li>
-                    <li>A player's mass is the number of food particles eaten.</li>
-                    <li>Objective: Try to get fat and eat other players.</li>
+                    <li>Bouger votre souris sur l'écran afin de faire bouger votre joueur.</li>
+                    <li>Manger, manger, manger jusqu'à devenir le leader de la game.</li>
+                    <li>La masse d'un joueur est le nombre de particules de nourriture consommées.</li>
+                    <li>Objectif: devenir le meilleur dresseur et se battre sans répit.</li>
                 </ul>
             </div>
         </div>
