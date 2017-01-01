@@ -376,7 +376,7 @@ io.on('connection', function (socket) {
                 }
             }
             if (!worked) {
-                socket.emit('serverMSG', 'Impossible de localiser l'utilisateur ou l'utilisateur est un administrateur.');
+                socket.emit('serverMSG', 'Impossible de localiser l\'utilisateur ou l\'utilisateur est un administrateur.');
             }
         } else {
             console.log('[ADMIN] ' + currentPlayer.name + ' essaie d\'utiliser -kick mais n\'est pas un admin.');
