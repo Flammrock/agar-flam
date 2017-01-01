@@ -216,7 +216,7 @@ function balanceMass() {
 }
 
 io.on('connection', function (socket) {
-    console.log('A user connected!', socket.handshake.query.type);
+    console.log('Un joueur est connecté !', socket.handshake.query.type);
 
     var type = socket.handshake.query.type;
     var radius = util.massToRadius(c.defaultPlayerMass);
@@ -252,16 +252,16 @@ io.on('connection', function (socket) {
     };
 
     socket.on('gotit', function (player) {
-        console.log('[INFO] Player ' + player.name + ' connecting!');
+        console.log('[INFO] Joueur ' + player.name + ' connecté !');
 
         if (util.findIndex(users, player.id) > -1) {
-            console.log('[INFO] Player ID is already connected, kicking.');
+            console.log('[INFO] L\'ID du joueur est déjà connecté, kicking.');
             socket.disconnect();
         } else if (!util.validNick(player.name)) {
-            socket.emit('kick', 'Invalid username.');
+            socket.emit('kick', 'Nom invalide.');
             socket.disconnect();
         } else {
-            console.log('[INFO] Player ' + player.name + ' connected!');
+            console.log('[INFO] Joueur ' + player.name + ' connecté !');
             sockets[player.id] = socket;
 
             var radius = util.massToRadius(c.defaultPlayerMass);
@@ -295,7 +295,7 @@ io.on('connection', function (socket) {
                 gameWidth: c.gameWidth,
                 gameHeight: c.gameHeight
             });
-            console.log('Total players: ' + users.length);
+            console.log('Joueur total: ' + users.length);
         }
 
     });
@@ -313,13 +313,13 @@ io.on('connection', function (socket) {
         if (util.findIndex(users, currentPlayer.id) > -1)
             users.splice(util.findIndex(users, currentPlayer.id), 1);
         socket.emit('welcome', currentPlayer);
-        console.log('[INFO] User ' + currentPlayer.name + ' respawned!');
+        console.log('[INFO] Joueur ' + currentPlayer.name + ' Réapparu !');
     });
 
     socket.on('disconnect', function () {
         if (util.findIndex(users, currentPlayer.id) > -1)
             users.splice(util.findIndex(users, currentPlayer.id), 1);
-        console.log('[INFO] User ' + currentPlayer.name + ' disconnected!');
+        console.log('[INFO] Joueur ' + currentPlayer.name + ' déconnecté !');
 
         socket.broadcast.emit('playerDisconnect', { name: currentPlayer.name });
     });
@@ -335,13 +335,13 @@ io.on('connection', function (socket) {
 
     socket.on('pass', function(data) {
         if (data[0] === c.adminPass) {
-            console.log('[ADMIN] ' + currentPlayer.name + ' just logged in as an admin!');
-            socket.emit('serverMSG', 'Welcome back ' + currentPlayer.name);
-            socket.broadcast.emit('serverMSG', currentPlayer.name + ' just logged in as admin!');
+            console.log('[ADMIN] ' + currentPlayer.name + ' Juste connecté en tant qu\'administrateur !');
+            socket.emit('serverMSG', 'Nous saluons le retour de ' + currentPlayer.name);
+            socket.broadcast.emit('serverMSG', currentPlayer.name + ' Juste connecté en tant qu\'administrateur!');
             currentPlayer.admin = true;
         } else {
-            console.log('[ADMIN] ' + currentPlayer.name + ' attempted to log in with incorrect password.');
-            socket.emit('serverMSG', 'Password incorrect, attempt logged.');
+            console.log('[ADMIN] ' + currentPlayer.name + ' a tenté de se connecter avec un mot de passe incorrect.');
+            socket.emit('serverMSG', 'Mot de passe incorrect, tentative de connexion.');
             // TODO: Actually log incorrect passwords.
         }
     });
@@ -376,11 +376,11 @@ io.on('connection', function (socket) {
                 }
             }
             if (!worked) {
-                socket.emit('serverMSG', 'Could not locate user or user is an admin.');
+                socket.emit('serverMSG', 'Impossible de localiser l'utilisateur ou l'utilisateur est un administrateur.');
             }
         } else {
-            console.log('[ADMIN] ' + currentPlayer.name + ' is trying to use -kick but isn\'t an admin.');
-            socket.emit('serverMSG', 'You are not permitted to use this command.');
+            console.log('[ADMIN] ' + currentPlayer.name + ' essaie d\'utiliser -kick mais n\'est pas un admin.');
+            socket.emit('serverMSG', 'Vous n\'êtes pas autorisé à utiliser cette commande.');
         }
     });
 
@@ -457,7 +457,7 @@ io.on('connection', function (socket) {
 
 function tickPlayer(currentPlayer) {
     if(currentPlayer.lastHeartbeat < new Date().getTime() - c.maxHeartbeatInterval) {
-        sockets[currentPlayer.id].emit('kick', 'Last heartbeat received over ' + c.maxHeartbeatInterval + ' ago.');
+        sockets[currentPlayer.id].emit('kick', 'Derniers battements cardiaques reçus ' + c.maxHeartbeatInterval + ' environ.');
         sockets[currentPlayer.id].disconnect();
     }
 
@@ -721,5 +721,5 @@ setInterval(sendUpdates, 1000 / c.networkUpdateFactor);
 var ipaddress = process.env.OPENSHIFT_NODEJS_IP || process.env.IP || '0.0.0.0';
 var serverport = process.env.OPENSHIFT_NODEJS_PORT || process.env.PORT || c.port;
 http.listen( serverport, ipaddress, function() {
-    console.log('[DEBUG] Listening on ' + ipaddress + ':' + serverport);
+    console.log('[DEBUG] Écouter sur ' + ipaddress + ':' + serverport);
 });
